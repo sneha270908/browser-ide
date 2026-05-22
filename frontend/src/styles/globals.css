@@ -1,0 +1,192 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Google Fonts fallback ───────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* ── CSS Custom Properties ───────────────────── */
+:root {
+  --forge-bg: #080c14;
+  --forge-surface: #0d1526;
+  --forge-elevated: #111d35;
+  --forge-border: #1a2d50;
+  --forge-accent: #2563eb;
+  --forge-glow: rgba(37, 99, 235, 0.4);
+  --scrollbar-track: #0d1526;
+  --scrollbar-thumb: #1a2d50;
+  --scrollbar-hover: #2563eb55;
+}
+
+/* ── Base Reset ──────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  background-color: var(--forge-bg);
+  color: #e2e8f0;
+  font-family: 'Syne', system-ui, sans-serif;
+  overflow: hidden;
+  height: 100vh;
+}
+
+#root {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Custom Scrollbars ───────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--scrollbar-track); }
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 3px;
+  transition: background 0.2s;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--scrollbar-hover); }
+
+/* ── Glassmorphism ───────────────────────────── */
+.glass {
+  background: rgba(13, 21, 38, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(26, 45, 80, 0.6);
+}
+
+.glass-subtle {
+  background: rgba(13, 21, 38, 0.5);
+  backdrop-filter: blur(8px);
+}
+
+/* ── Glow Effects ────────────────────────────── */
+.glow-blue {
+  box-shadow: 0 0 20px rgba(37, 99, 235, 0.3), 0 0 60px rgba(37, 99, 235, 0.1);
+}
+.glow-text-blue {
+  text-shadow: 0 0 20px rgba(59, 130, 246, 0.8);
+}
+.glow-border {
+  border-color: rgba(37, 99, 235, 0.6);
+  box-shadow: 0 0 10px rgba(37, 99, 235, 0.2), inset 0 0 10px rgba(37, 99, 235, 0.05);
+}
+
+/* ── Grid Pattern Background ─────────────────── */
+.bg-grid {
+  background-image: 
+    linear-gradient(rgba(37, 99, 235, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(37, 99, 235, 0.03) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* ── Monaco Editor Override ──────────────────── */
+.monaco-editor {
+  padding-top: 8px !important;
+}
+.monaco-editor .margin {
+  background-color: #080c14 !important;
+}
+
+/* ── Tab Styles ──────────────────────────────── */
+.tab-item {
+  transition: all 0.15s ease;
+  position: relative;
+}
+.tab-item.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #2563eb, #06b6d4);
+  border-radius: 1px 1px 0 0;
+}
+
+/* ── Sidebar Tree ────────────────────────────── */
+.tree-item {
+  transition: background 0.1s ease;
+}
+.tree-item:hover { background: rgba(37, 99, 235, 0.08); }
+.tree-item.selected { background: rgba(37, 99, 235, 0.15); }
+
+/* ── Command Palette ─────────────────────────── */
+.command-backdrop {
+  backdrop-filter: blur(8px);
+  background: rgba(8, 12, 20, 0.85);
+}
+
+/* ── Resize Handle ───────────────────────────── */
+[data-panel-resize-handle-id] {
+  background: transparent;
+  transition: background 0.15s;
+  position: relative;
+}
+[data-panel-resize-handle-id]:hover,
+[data-panel-resize-handle-id][data-resize-handle-active] {
+  background: rgba(37, 99, 235, 0.4);
+}
+
+/* ── Loading Skeleton ────────────────────────── */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(26, 45, 80, 0.3) 25%,
+    rgba(37, 99, 235, 0.1) 50%,
+    rgba(26, 45, 80, 0.3) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+
+/* ── Floating animation for hero ─────────────── */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+.animate-float { animation: float 4s ease-in-out infinite; }
+
+/* ── Gradient text ───────────────────────────── */
+.gradient-text {
+  background: linear-gradient(135deg, #60a5fa, #06b6d4, #8b5cf6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Noise overlay ───────────────────────────── */
+.noise-overlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.02'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Terminal ────────────────────────────────── */
+.terminal-text { font-family: 'JetBrains Mono', monospace; font-size: 13px; }
+.terminal-cursor {
+  display: inline-block;
+  width: 8px;
+  height: 14px;
+  background: #2563eb;
+  animation: blink 1s step-end infinite;
+  vertical-align: text-bottom;
+  margin-left: 2px;
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* ── Toast override ──────────────────────────── */
+.toast-forge {
+  background: #111d35 !important;
+  border: 1px solid #1a2d50 !important;
+  color: #e2e8f0 !important;
+}
