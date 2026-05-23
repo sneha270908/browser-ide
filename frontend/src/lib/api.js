@@ -3,7 +3,7 @@
  * Centralized API abstraction with auth token injection
  */
 
-const BASE_URL = '/api';
+const BASE_URL = import.meta.env.VITE_API_URL || '/api';
 
 // Get auth token from localStorage
 const getToken = () => localStorage.getItem('cf_token');
